@@ -53,6 +53,24 @@ class TestAddingEntries:
 def test_deleting_contacts():
     pass
 
+@then("wpis nie będzie już widoczny w książce adresowej")
+def emptylist(contactbook):
+    assert contactbook._contacts == []
+
+@scenario(r"D:\projekty\tester0907\tests\acceptance\list_contacts.feature", "Wyświetlenie listy dodanych wpisów do książki adresowej")
+def test_list_contacts(capsys):
+    pass
+
+@given("Mam pierwszy wpis <first>")
+def have_a_first_contact(contactbook, first):
+    contactbook.add(first, "123456789")
+    return first
+
+@given("Mam drugi wpis <second>")
+def have_a_first_contact(contactbook, second):
+    contactbook.add(second, "123456789")
+    return second
+
 @given("Mam książkę adresową", target_fixture="contactbook")
 def contactbook():
     return contacts.Application()
@@ -65,6 +83,11 @@ def have_a_contact(contactbook, contactname):
 def runcommand(contactbook, command):
     contactbook.run(command)
 
-@then("wpis nie będzie już widoczny w książce adresowej")
-def emptylist(contactbook):
-    assert contactbook._contacts == []
+@then("Dane wyjściowe zawierają listę wpisów <listed_contacts>")
+def outputcontains(listed_contacts, capsys):
+    out, err = capsys.readouterr()
+    for contact in listed_contacts.split(", "):
+        assert contact in out
+
+
+
