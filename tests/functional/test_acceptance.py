@@ -66,20 +66,20 @@ def contactbook():
 def test_listing_added_contacts(capsys):
     pass
 
-@given(parsers.parse("Mam pierwszy wpis {pierwszy}"))
+@given(parsers.parse("Mam pierwszy wpis <pierwszy>"))
 def have_a_first_contact(contactbook, pierwszy):
     contactbook.add(pierwszy, "123456789")
     return pierwszy
 
-@given(parsers.parse("Mam drugi wpis {second}"))
+@given(parsers.parse("Mam drugi wpis <second>"))
 def have_a_second_contact(contactbook, second):
     contactbook.add(second, "123456789")
     return second
 
-@then(parsers.parse("Dane wyjściowe zawierają listę wpisów {listed_contacts}"))
+@then(parsers.parse("Dane wyjściowe zawierają listę wpisów <listed_contacts>"))
 def outputcontains(listed_contacts, capsys):
     expected_list = "".join([f"{contact} 123456789\n" for contact in listed_contacts.split(",")])
-    out, err = capsys.readouterr()
+    out, _ = capsys.readouterr()
     assert out == expected_list
 
 @given(parsers.parse("Mam wpis dotyczący użytkownika \"{contactname}\""))
