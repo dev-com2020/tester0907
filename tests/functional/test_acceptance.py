@@ -34,3 +34,14 @@ class TestAddingEntries:
             ("Yennefer z Wanderbergu", "+48123456789")
         ]
 
+    def test_reload(self):
+        app = contacts.Application()
+        app.run("contacts add Yennefer z Wanderbergu +48123456789")
+        assert app._contacts == [
+            ("Yennefer z Wanderbergu", "+48123456789")
+            ]
+        app._clear()
+        app.load()
+        assert app._contacts == [
+            ("Yennefer z Wanderbergu", "+48123456789")
+            ]
