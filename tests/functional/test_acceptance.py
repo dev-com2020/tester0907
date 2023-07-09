@@ -20,3 +20,9 @@ class TestAddingEntries:
             ("Ludwik Mariusz Kowalski", "123456789"),
             ("Jan Kowalski-Kowalski", "123456789")
         ]
+
+    def test_invalid_strings(self):
+        app = contacts.Application()
+        app.run("contacts add Jan Kowalski fhiujdshfisdhfihu")
+        assert app._contacts == []
+
