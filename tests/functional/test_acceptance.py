@@ -26,3 +26,11 @@ class TestAddingEntries:
         app.run("contacts add Jan Kowalski fhiujdshfisdhfihu")
         assert app._contacts == []
 
+    def test_international_numbers(self):
+        app = contacts.Application()
+        app.run("contacts add Yennefer z Wanderbergu +48123456789")
+
+        assert app._contacts == [
+            ("Yennefer z Wanderbergu", "+48123456789")
+        ]
+
