@@ -11,7 +11,8 @@ def test_basic_options_chrome():
     driver.quit()
 
 # def test_basic_options_firefox():
-#     driver = webdriver.Firefox(service=FirefoxService(GeckoDriverManager().install()))
+#     driver = webdriver.Firefox(service=FirefoxService(executable_path=GeckoDriverManager().install()))
+#     time.sleep(5)
 #     driver.get("https://www.google.com")
 #     time.sleep(2)
 #     driver.quit()

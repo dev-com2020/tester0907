@@ -2,27 +2,54 @@
 import time
 
 from selenium import webdriver
+from selenium.common import NoSuchElementException
+from selenium.webdriver import Keys
 from selenium.webdriver.common.by import By
-from selenium.webdriver.common.action_chains import ActionChains
 
 
 class Test111():
     def setup_method(self, method):
         self.driver = webdriver.Chrome()
+        self.driver2 = webdriver.Edge()
         self.vars = {}
 
     def teardown_method(self, method):
         self.driver.quit()
+        self.driver2.quit()
 
     def test_wpisanie_w_google(self):
         self.driver.get("https://www.google.com/")
+        # self.driver.implicitly_wait(2500)
         self.driver.set_window_size(1813, 1012)
+
         # time.sleep(1000)
-        self.driver.find_element(By.XPATH, '//*[@id="L2AGLb"]/div').click()
+        try:
+            self.driver.find_element(By.XPATH, '//*[@id="L2AGLb"]/div').click()
+        except NoSuchElementException:
+            pass
         time.sleep(3)
         szukaj = self.driver.find_element(By.NAME, "q")
         szukaj.send_keys("selenium")
-        szukaj.submit()
+        szukaj.send_keys(Keys.ENTER)
+        # szukaj.submit()
         assert self.driver.title == "selenium - Szukaj w Google"
         self.driver.save_screenshot('screenshot.png')
+        # time.sleep(3)
+
+    def test_wpisanie_w_google_edge(self):
+        self.driver2.get("https://www.google.com/")
+        # self.driver.implicitly_wait(2500)
+        self.driver2.set_window_size(1813, 1012)
+
+        # time.sleep(1000)
+        try:
+            self.driver2.find_element(By.XPATH, '//*[@id="L2AGLb"]/div').click()
+        except NoSuchElementException:
+            pass
         time.sleep(3)
+        szukaj = self.driver2.find_element(By.NAME, "q")
+        szukaj.send_keys("selenium")
+        szukaj.send_keys(Keys.ENTER)
+        # szukaj.submit()
+        assert self.driver2.title == "selenium - Szukaj w Google"
+        self.driver2.save_screenshot('screenshot2.png')
