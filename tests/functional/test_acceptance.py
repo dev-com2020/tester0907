@@ -1,4 +1,4 @@
-from pytest_bdd import scenario, given, parsers, when
+from pytest_bdd import scenario, given, parsers, when, then
 
 from src import contacts
 
@@ -48,19 +48,23 @@ class TestAddingEntries:
             ("Yennefer z Wanderbergu", "+48123456789")
             ]
 
-    @given("Mam książkę adresową", target_fixture="contactbook")
-    def contactbook(self):
-        return contacts.Application()
 
-    @given(parsers.parse("Mam wpis dotyczący użytkownika \"{contactname}\""))
-    def have_a_contact(self, contactbook, contactname):
-        contactbook.add(contactname, "123456789")
+@scenario(r"D:\projekty\tester0907\tests\acceptance\delete_contact.feature", "Usunięcie wpisu z książki adresowej")
+def test_deleting_contacts():
+    pass
 
-    @when(parsers.parse("Po wydaniu polecenia \"{command}\""))
-    def runcommand(self, contactbook, command):
-        contactbook.run(command)
+@given("Mam książkę adresową", target_fixture="contactbook")
+def contactbook():
+    return contacts.Application()
 
+@given(parsers.parse("Mam wpis dotyczący użytkownika \"{contactname}\""))
+def have_a_contact(contactbook, contactname):
+    contactbook.add(contactname, "123456789")
 
-    @scenario(r"D:\projekty\tester0907\tests\acceptance\delete_contact.feature", "Usunięcie wpisu z książki adresowej")
-    def test_deleting_contacts(self):
-        pass
+@when(parsers.parse("Po wydaniu polecenia \"{command}\""))
+def runcommand(contactbook, command):
+    contactbook.run(command)
+
+@then("wpis nie będzie już widoczny w książce adresowej")
+def emptylist(contactbook):
+    assert contactbook._contacts == []
