@@ -7,7 +7,7 @@ from webdriver_manager.firefox import GeckoDriverManager
 def test_basic_options_chrome():
     driver = webdriver.Chrome()
     driver.get("https://www.google.com")
-    time.sleep(2)
+    time.sleep(3)
     driver.quit()
 
 # def test_basic_options_firefox():
@@ -25,7 +25,7 @@ def test_basic_options_chrome():
 def test_basic_options_edge():
     driver = webdriver.Edge()
     driver.get("https://www.google.com")
-    time.sleep(2)
+    time.sleep(3)
     driver.quit()
 
 # def test_basic_options_opera():
