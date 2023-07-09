@@ -50,6 +50,10 @@ class Test111():
         szukaj = self.driver2.find_element(By.NAME, "q")
         szukaj.send_keys("selenium")
         szukaj.send_keys(Keys.ENTER)
+        try:
+            self.driver2.find_element(By.XPATH, '//*[@id="L2AGLb"]/div').click()
+        except NoSuchElementException:
+            pass
         # szukaj.submit()
         assert self.driver2.title == "selenium - Szukaj w Google"
         self.driver2.save_screenshot('screenshot2.png')
